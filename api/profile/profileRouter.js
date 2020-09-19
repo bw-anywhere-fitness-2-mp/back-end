@@ -17,7 +17,7 @@ const router = express.Router();
  *      properties:
  *        id:
  *          type: string
- *          description: This is a foreign key (the okta user ID)
+ *          description: This is a foreign key (the user ID)
  *        email:
  *          type: string
  *        name:
@@ -36,7 +36,7 @@ const router = express.Router();
  *    description: Returns a list of profiles
  *    summary: Get a list of all profiles
  *    security:
- *      - okta: []
+ *
  *    tags:
  *      - profile
  *    responses:
@@ -91,7 +91,6 @@ router.get('/', authRequired, function (req, res) {
  *    description: Find profiles by ID
  *    summary: Returns a single profile
  *    security:
- *      - okta: []
  *    tags:
  *      - profile
  *    parameters:
@@ -129,7 +128,6 @@ router.get('/:id', authRequired, function (req, res) {
  *  post:
  *    summary: Add a profile
  *    security:
- *      - okta: []
  *    tags:
  *      - profile
  *    requestBody:
@@ -190,7 +188,6 @@ router.post('/', authRequired, async (req, res) => {
  *  put:
  *    summary: Update a profile
  *    security:
- *      - okta: []
  *    tags:
  *      - profile
  *    requestBody:
@@ -251,7 +248,6 @@ router.put('/', authRequired, (req, res) => {
  *  delete:
  *    summary: Remove a profile
  *    security:
- *      - okta: []
  *    tags:
  *      - profile
  *    parameters:

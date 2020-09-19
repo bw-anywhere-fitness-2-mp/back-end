@@ -30,13 +30,7 @@ module.exports = {
       url: 'https://ds.labsscaffolding.dev/',
     },
     components: {
-      securitySchemes: {
-        okta: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'Okta idToken JWT',
-        },
-      },
+      securitySchemes: {},
       responses: {
         UnauthorizedError: {
           description: 'Access token is missing or invalid',
