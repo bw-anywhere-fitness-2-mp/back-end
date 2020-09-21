@@ -8,12 +8,12 @@ function add(data) {
     });
 }
 
-function edit(changes, id) {
+function update(changes, id) {
   return db("classes")
     .update(changes)
     .where({ id })
     .then(([id]) => {
-      return findBy({ id });
+      return findById(id);
     });
 }
 
@@ -21,9 +21,13 @@ function findBy(filter) {
   return db("classes").where(filter).orderBy("id");
 }
 
+function findById(id) {
+  return db("classes").where({ id }).first();
+}
+
 function remove(id) {
   let removed;
-  findBy({ id }).then((rez) => (removed = rez));
+  findById(id).then((rez) => (removed = rez));
   return db("classes")
     .where({ id })
     .del()
@@ -34,7 +38,8 @@ function remove(id) {
 
 module.exports = {
   add,
-  edit,
+  update,
   findBy,
   remove,
+  findById,
 };

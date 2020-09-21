@@ -54,7 +54,7 @@ router.put("/:id", (req, res) => {
   const id = req.params.id;
   const changes = req.body;
 
-  Instructors.edit({ name: "Boxing Fundamentalsss" }, 1)
+  Instructors.update(changes, id)
     .then((updated) => {
       res.status(200).json(updated);
     })
