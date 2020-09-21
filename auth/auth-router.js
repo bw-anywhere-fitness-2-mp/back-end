@@ -12,8 +12,8 @@ router.post("/register", (req, res) => {
     user.password = hash;
     Auth.add(user)
       .then((user) => {
-        const token = makeJwt(user);
-        res.status(201).json({ data: user, token });
+        // const token = makeJwt(user);
+        res.status(201).json({ data: user });
       })
       .catch((error) => {
         res.status(500).json({ message: error.message });
@@ -30,7 +30,7 @@ router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   if (validateCreds(req.body)) {
-    Auth.findBy({ username: username })
+    Auth.findBy({ username })
       .then(([user]) => {
         if (user && bcryptjs.compareSync(password, user.password)) {
           const token = makeJwt(user);

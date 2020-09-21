@@ -13,4 +13,4 @@ function findBy(filter) {
   return db("users").where(filter).orderBy("id");
 }
 
-module.exports = { add };
+module.exports = { add, findBy };

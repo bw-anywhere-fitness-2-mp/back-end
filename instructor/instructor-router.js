@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Instructors = require("./instructor-helper");
 const restricted = require("../auth/restricted-middleware");
 
-router.get("/", restricted, (req, res) => {
+router.get("/", restricted, checkRole("instructor"), (req, res) => {
   console.log(req.jwt);
   Instructors.findBy({ instructor_name: req.jwt.username })
     .then((rez) => {
@@ -13,11 +13,10 @@ router.get("/", restricted, (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
   const id = req.params.id;
-  const username = req.body;
 
-  Instructors.findBy({ id })
+  Instructors.findBy({ instructor_name: req.jwt.username, id })
     .then((rez) => {
       res.status(200).json(rez);
     })
@@ -26,11 +25,25 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", restricted, (req, res) => {
   const data = req.body;
   Instructors.add(data)
     .then((rez) => {
-      res.status(201).json(rez);
+      if (
+        data.name &&
+        data.type &&
+        data.instructor_name &&
+        data.start_time &&
+        data.duration &&
+        data.intensity &&
+        data.location &&
+        data.current &&
+        data.maximum
+      ) {
+        res.status(201).json(rez);
+      } else {
+        res.status(400).json({ message: "All fields are required" });
+      }
     })
     .catch((err) => {
       res.status(500).json({ status: 500, err });
@@ -41,20 +54,13 @@ router.put("/:id", (req, res) => {
   const id = req.params.id;
   const changes = req.body;
 
-  Instructors.findBy({ id })
-    .then((rez) => {
-      if (rez) {
-        Instructors.update(changes, id).then((updated) => {
-          res.status(200).json(updated);
-        });
-      } else {
-        res
-          .status(404)
-          .json({ message: "Could not find a class with that ID" });
-      }
+  Instructors.edit({ name: "Boxing Fundamentalsss" }, 1)
+    .then((updated) => {
+      res.status(200).json(updated);
     })
     .catch((err) => {
-      res.status(500).json({ status: 500, err });
+      console.log(changes, id);
+      res.status(500).json({ status: 500, err: err.message });
     });
 });
 
