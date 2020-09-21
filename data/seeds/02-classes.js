@@ -8,6 +8,7 @@ exports.seed = function (knex) {
         {
           name: "Boxing Fundamentals",
           type: "boxing",
+          date: "02/02/20",
           instructor_name: "Sam",
           start_time: "11:30 am",
           duration: "1 hour",
@@ -19,6 +20,7 @@ exports.seed = function (knex) {
         {
           name: "Cycling intervals",
           type: "cycling",
+          date: "03/15/20",
           instructor_name: "Alex",
           start_time: "1:00 pm",
           duration: "1 hour",
@@ -30,6 +32,7 @@ exports.seed = function (knex) {
         {
           name: "German Volume Training",
           type: "weightlifting",
+          date: "04/28/20",
           instructor_name: "Sam",
           start_time: "2:00 pm",
           duration: "2 hours",

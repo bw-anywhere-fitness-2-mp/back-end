@@ -12,6 +12,7 @@ exports.up = function (knex) {
       tbl.increments();
       tbl.string("name").notNullable();
       tbl.string("type").notNullable();
+      tbl.string("date").notNullable();
       tbl.string("instructor_name").notNullable();
       tbl.string("start_time").notNullable();
       tbl.string("duration").notNullable();
