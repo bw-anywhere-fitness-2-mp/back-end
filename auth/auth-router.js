@@ -49,11 +49,11 @@ router.post("/login", (req, res) => {
     });
   }
 });
-function makeJwt({ id, username, role }) {
+function makeJwt(user) {
   const payload = {
-    username,
-    role,
-    subject: id,
+    username: user.username,
+    role: user.role,
+    subject: user.id,
   };
   const config = {
     jwtSecret: process.env.JWT_SECRET || "is it secret, is it safe?",

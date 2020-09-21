@@ -4,12 +4,13 @@ function add(data) {
   return db("users")
     .insert(data)
     .then(([id]) => {
+      // console.log(id);
       return findBy({ id });
     });
 }
 
 function findBy(filter) {
-  return db("classes").where(filter).orderBy("id");
+  return db("users").where(filter).orderBy("id");
 }
 
 module.exports = { add };
