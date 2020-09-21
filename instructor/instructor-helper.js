@@ -8,7 +8,7 @@ function add(data) {
     });
 }
 
-function update(changes, id) {
+function edit(changes, id) {
   return db("classes")
     .update(changes)
     .where({ id })
@@ -34,7 +34,7 @@ function remove(id) {
 
 module.exports = {
   add,
-  update,
+  edit,
   findBy,
   remove,
 };
