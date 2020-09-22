@@ -2,15 +2,17 @@ const supertest = require("supertest");
 const server = require("../server");
 const db = require("../data/db-config");
 
+let token;
 describe("auth-router", () => {
   describe("POST /register", () => {
-    beforeEach(async () => {
-      await db.migrate
-        .rollback()
-        .then(() => db.migrate.latest().then(() => db.seed.run()));
-    });
+    // beforeEach(async () => {
+    //   await db.migrate
+    //     .rollback()
+    //     .then(() => db.migrate.latest().then(() => db.seed.run()));
+    // });
 
-    it("registers a user", () => {
+    it("registers a user", async () => {
+      await db("users").truncate();
       return supertest(server)
         .post("/api/auth/register")
         .send({
@@ -33,26 +35,28 @@ describe("auth-router", () => {
         });
     });
   });
-});
 
-describe("POST Login", () => {
-  it("should see if message property shows up", () => {
-    const username = "newaccount";
-    const password = "newpassword";
+  describe("POST Login", () => {
+    it("should see if token property shows up", () => {
+      const username = "hello";
+      const password = "helloagain";
 
-    return supertest(server)
-      .post("/api/auth/login")
-      .send({ username: username, password: password })
-      .then((res) => {
-        expect(res.body).toHaveProperty("message");
-      });
-  });
-  it("should throw a 401 since theres no user data", () => {
-    return supertest(server)
-      .post("/api/auth/login")
-      .send({ username: "newaccount", password: "newpassword" })
-      .then((res) => {
-        expect(res.status).toBe(401);
-      });
+      return supertest(server)
+        .post("/api/auth/login")
+        .send({ username: username, password: password })
+        .then((res) => {
+          console.log(res.body);
+          token = res.body.token;
+          expect(res.body).toHaveProperty("token");
+        });
+    });
+    it("should throw a 401 since theres no user data", () => {
+      return supertest(server)
+        .post("/api/auth/login")
+        .send({ username: "newaccount", password: "newpassword" })
+        .then((res) => {
+          expect(res.status).toBe(401);
+        });
+    });
   });
 });
