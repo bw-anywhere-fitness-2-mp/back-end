@@ -49,6 +49,7 @@ router.post("/login", (req, res) => {
     });
   }
 });
+
 function makeJwt(user) {
   const payload = {
     username: user.username,
@@ -63,6 +64,7 @@ function makeJwt(user) {
   };
   return jwt.sign(payload, config.jwtSecret, options);
 }
+
 function validateUser(user) {
   return Boolean(
     user.username &&

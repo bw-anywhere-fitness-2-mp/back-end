@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Instructors = require("./instructor-helper");
 const restricted = require("../auth/restricted-middleware");
 
-router.get("/", restricted, checkRole("instructor"), (req, res) => {
+router.get("/", (req, res) => {
   console.log(req.jwt);
   Instructors.findBy({ instructor_name: req.jwt.username })
     .then((rez) => {
@@ -13,7 +13,7 @@ router.get("/", restricted, checkRole("instructor"), (req, res) => {
     });
 });
 
-router.get("/:id", restricted, (req, res) => {
+router.get("/:id", (req, res) => {
   const id = req.params.id;
 
   Instructors.findBy({ instructor_name: req.jwt.username, id })
@@ -25,7 +25,7 @@ router.get("/:id", restricted, (req, res) => {
     });
 });
 
-router.post("/", restricted, (req, res) => {
+router.post("/", (req, res) => {
   const data = req.body;
   Instructors.add(data)
     .then((rez) => {
@@ -82,16 +82,5 @@ router.delete("/:id", (req, res) => {
       res.status(500).json({ status: 500, err: err.message });
     });
 });
-
-function checkRole(role) {
-  return (req, res, next) => {
-    console.log(req.jwt);
-    if (req.jwt.role === role) {
-      next();
-    } else {
-      res.status(403).json({ message: "You are not authorized" });
-    }
-  };
-}
 
 module.exports = router;
