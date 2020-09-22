@@ -15,14 +15,4 @@ router.get("/", (req, res) => {
 //     .catch((err) => res.status(500).json({ status: 500, err }));
 // });
 
-function checkRole(role) {
-  return (req, res, next) => {
-    if (req.jwt.role === role) {
-      next();
-    } else {
-      res.status(403).json({ message: "You are not authorized" });
-    }
-  };
-}
-
 module.exports = router;

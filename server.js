@@ -17,11 +17,26 @@ server.use(
   })
 );
 server.use("/api/auth", authRouter);
-server.use("/api/client", clientRouter);
-server.use("/api/instructor", instructorRouter);
+server.use("/api/client", restricted, checkRole("client"), clientRouter);
+server.use(
+  "/api/instructor",
+  restricted,
+  checkRole("instructor"),
+  instructorRouter
+);
 
 server.get("/", (req, res) => {
   res.status(200).json({ Victor_Frankenstein: "It LIVEEEESSSSSSS" });
 });
+
+function checkRole(role) {
+  return (req, res, next) => {
+    if (req.jwt.role === role) {
+      next();
+    } else {
+      res.status(403).json({ message: "You are not authorized" });
+    }
+  };
+}
 
 module.exports = server;

@@ -8,11 +8,11 @@ function add(data) {
     });
 }
 
-function update(changes, id) {
+function updateClass(changes, id) {
   return db("classes")
-    .update(changes)
     .where({ id })
-    .then(([id]) => {
+    .update(changes)
+    .then((id) => {
       return findById(id);
     });
 }
@@ -38,7 +38,7 @@ function remove(id) {
 
 module.exports = {
   add,
-  update,
+  updateClass,
   findBy,
   remove,
   findById,
