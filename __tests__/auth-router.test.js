@@ -7,7 +7,16 @@ describe("auth-router", () => {
     beforeEach(async () => {
       await db.migrate
         .rollback()
-        .then(() => db.migrate.latest().then(() => db.seed.run));
+        .then(() => db.migrate.latest().then(() => db.seed.run()));
     });
+    it("returns status 400 if info is invalid", async () => {
+      await supertest(server)
+        .post("/api/auth/register")
+        .send({})
+        .then((res) => {
+          expect(res.status).toBe(400);
+        });
+    });
+    // it("returns 201");
   });
 });
