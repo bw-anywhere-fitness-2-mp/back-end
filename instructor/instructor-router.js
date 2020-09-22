@@ -32,6 +32,7 @@ router.post("/", restricted, (req, res) => {
       if (
         data.name &&
         data.type &&
+        data.date &&
         data.instructor_name &&
         data.start_time &&
         data.duration &&
@@ -46,7 +47,7 @@ router.post("/", restricted, (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(500).json({ status: 500, err });
+      res.status(500).json({ status: 500, err: err.message });
     });
 });
 
@@ -54,7 +55,7 @@ router.put("/:id", (req, res) => {
   const id = req.params.id;
   const changes = req.body;
 
-  Instructors.update(changes, id)
+  Instructors.updateClass(changes, id)
     .then((updated) => {
       res.status(200).json(updated);
     })
@@ -70,7 +71,7 @@ router.delete("/:id", (req, res) => {
   Instructors.remove(id)
     .then((deleted) => {
       if (deleted) {
-        res.status(204).json({ removed: deleted });
+        res.status(200).json({ removed: deleted });
       } else {
         res
           .status(404)
@@ -78,7 +79,7 @@ router.delete("/:id", (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(500).json({ status: 500, err });
+      res.status(500).json({ status: 500, err: err.message });
     });
 });
 
