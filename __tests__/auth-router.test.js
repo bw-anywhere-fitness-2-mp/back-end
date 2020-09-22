@@ -9,6 +9,7 @@ describe("auth-router", () => {
         .rollback()
         .then(() => db.migrate.latest().then(() => db.seed.run()));
     });
+<<<<<<< HEAD
     it('registers a user', () => {
       return supertest(server)
           .post('/api/auth/register')
@@ -18,7 +19,7 @@ describe("auth-router", () => {
           })
   })
 
-  it('should throw error 500 because no password', () => {
+  it('should throw error 400 because no password', () => {
       return supertest(server)
           .post('/api/auth/register')
           .send({ username: 'hello', password: '' })
@@ -26,6 +27,7 @@ describe("auth-router", () => {
               expect(res.status).toBe(400)
           })
   })
+
   });
 });
 

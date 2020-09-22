@@ -7,6 +7,16 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(500).json({ status: 500, err }));
 });
 
+router.get("/search", (req, res) => {
+  Clients.findBy({ [req.body.category]: req.body.name })
+    .then((rez) => {
+      res.status(200).json(rez);
+    })
+    .catch((err) => {
+      res.status(500).json({ status: 500, err: err.message });
+    });
+});
+
 // router.get("/:id", (req, res) => {
 //   const id = req.params.id;
 //   helper
@@ -16,3 +26,10 @@ router.get("/", (req, res) => {
 // });
 
 module.exports = router;
+
+// Axios.get("", () => {
+//   const searchObj = {
+//     category: formValues.asdjnask
+//     name: formValues.eiubfieub
+//   }
+// })
