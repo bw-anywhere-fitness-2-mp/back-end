@@ -60,5 +60,15 @@ describe("auth-router", () => {
           expect(res.status).toBe(401);
         });
     });
+    it("should return 401 since not logged in", async () => {
+      await db.migrate
+        .rollback()
+        .then(() => db.migrate.latest().then(() => db.seed.run()));
+      return supertest(server)
+        .get("/api/client")
+        .then((res) => {
+          expect(res.status).toBe(401);
+        });
+    });
   });
 });
