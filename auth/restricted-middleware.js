@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
       if (err) {
         res.status(401).json({ message: "Not Allowed" });
       } else {
-        console.log(req.jwt);
         req.jwt = decodedToken;
         next();
       }

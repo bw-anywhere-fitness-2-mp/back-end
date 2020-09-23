@@ -3,7 +3,7 @@ const Instructors = require("./instructor-helper");
 const restricted = require("../auth/restricted-middleware");
 
 router.get("/", (req, res) => {
-  console.log(req.jwt);
+  // console.log(req.jwt);
   Instructors.findBy({ instructor_name: req.jwt.username })
     .then((rez) => {
       res.status(200).json(rez);
@@ -27,28 +27,28 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const data = req.body;
-  Instructors.add(data)
-    .then((rez) => {
-      if (
-        data.name &&
-        data.type &&
-        data.date &&
-        data.instructor_name &&
-        data.start_time &&
-        data.duration &&
-        data.intensity &&
-        data.location &&
-        data.current &&
-        data.maximum
-      ) {
+  if (
+    data.name &&
+    data.type &&
+    data.date &&
+    data.instructor_name &&
+    data.start_time &&
+    data.duration &&
+    data.intensity &&
+    data.location &&
+    data.current &&
+    data.maximum
+  ) {
+    Instructors.add(data)
+      .then((rez) => {
         res.status(201).json(rez);
-      } else {
-        res.status(400).json({ message: "All fields are required" });
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({ status: 500, err: err.message });
-    });
+      })
+      .catch((err) => {
+        res.status(500).json({ status: 500, err: err.message });
+      });
+  } else {
+    res.status(400).json({ message: "All fields are required" });
+  }
 });
 
 router.put("/:id", (req, res) => {

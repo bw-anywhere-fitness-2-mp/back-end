@@ -26,7 +26,6 @@ classes wherever they might be held.
 
 ### **_Additional athunetication for Instructor_**
 
-
 | Method               | Endpoint            | Body (required)                                                                                | Body (optional) | Notes                                                                                                                                                                            |
 | -------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Get Class GET        | /api/instructor/:id | any of the field                                                                               | N/A             | Returns the class with given Id                                                                                                                                                  |
@@ -35,10 +34,8 @@ classes wherever they might be held.
 | Update Class PUT     | /api/instructor/:id | any of the field                                                                               | N/A             | Updates the class with given Id                                                                                                                                                  |
 | Removes Class DELETE | /api/instructor/:id | any of the field                                                                               | N/A             | Deletes the class with given Id                                                                                                                                                  |
 
-
 ### **_Endpoints for the Users_**
 
 | Method          | Endpoint    | Body (required) | Body (optional) | Notes                                     |
 | --------------- | ----------- | --------------- | --------------- | ----------------------------------------- |
 | get classes GET | /api/client | N/A             | N/A             | Fetches all the classes from the database |
-

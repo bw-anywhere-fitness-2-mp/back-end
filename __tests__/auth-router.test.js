@@ -12,7 +12,9 @@ describe("auth-router", () => {
     // });
 
     it("registers a user", async () => {
-      await db("users").truncate();
+      await db.migrate
+        .rollback()
+        .then(() => db.migrate.latest().then(() => db.seed.run()));
       return supertest(server)
         .post("/api/auth/register")
         .send({
@@ -45,7 +47,7 @@ describe("auth-router", () => {
         .post("/api/auth/login")
         .send({ username: username, password: password })
         .then((res) => {
-          console.log(res.body);
+          // console.log(res.body);
           token = res.body.token;
           expect(res.body).toHaveProperty("token");
         });
