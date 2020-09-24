@@ -64,7 +64,7 @@ function makeJwt(user) {
   };
   return jwt.sign(payload, config.jwtSecret, options);
 }
-
+//auth for user and pass 
 function validateUser(user) {
   return Boolean(
     user.username &&
@@ -73,7 +73,7 @@ function validateUser(user) {
       typeof user.password === "string"
   );
 }
-
+//validating info for login
 function validateCreds(user) {
   return Boolean(
     user.username && user.password && typeof user.password === "string"

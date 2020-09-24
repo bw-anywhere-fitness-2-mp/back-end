@@ -20,7 +20,7 @@ server.use("/api/auth", authRouter);
 server.use("/api/client", restricted, checkRole("client"), clientRouter);
 server.use(
   "/api/instructor",
-  restricted,
+  restricted, //checking for token
   checkRole("instructor"),
   instructorRouter
 );
@@ -29,6 +29,7 @@ server.get("/", (req, res) => {
   res.status(200).json({ Victor_Frankenstein: "It LIVEEEESSSSSSS" });
 });
 
+//checking for client or instructor
 function checkRole(role) {
   return (req, res, next) => {
     if (req.jwt.role === role) {
