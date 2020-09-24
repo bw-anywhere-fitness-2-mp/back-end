@@ -15,7 +15,7 @@ module.exports = {
     },
   },
 
-  staging: {
+  testing: {
     client: "sqlite3",
     useNullAsDefault: true,
     connection: {
