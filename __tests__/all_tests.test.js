@@ -82,6 +82,7 @@ describe("auth-router", () => {
     });
   });
 });
+
 describe("client-router.test", () => {
   describe("GET /", () => {
     it("should return 401 since not logged in", async () => {
@@ -131,6 +132,7 @@ describe("client-router.test", () => {
     });
   });
 });
+
 describe("instructor-router.test", () => {
   describe("GET /", () => {
     it("should return 401 since not logged in", async () => {
@@ -193,7 +195,7 @@ describe("instructor-router.test", () => {
       await supertest(server)
         .put("/api/instructor/1")
         .set("Authorization", token2)
-        .send({ name: "Kickboxing fundamentals" })
+        .send({ name: "Advanced kickboxing" })
         .then((res) => {
           expect(res.status).toBe(200);
         });
@@ -202,9 +204,9 @@ describe("instructor-router.test", () => {
       await supertest(server)
         .put("/api/instructor/1")
         .set("Authorization", token2)
-        .send({ name: "Kickboxing fundamentals" })
+        .send({ name: "Advanced kickboxing" })
         .then((res) => {
-          expect(res.body).toHaveProperty("name", "Kickboxing fundamentals");
+          expect(res.body).toHaveProperty("name", "Advanced kickboxing");
         });
     });
   });
@@ -238,3 +240,16 @@ describe("instructor-router.test", () => {
     });
   });
 });
+
+// {
+//   "name": "Kickboxing Fundamentals",
+//   "type": "kickboxing",
+//   "date": "02/02/20",
+//   "instructor_name": "Sam",
+//   "start_time": "11:30 am",
+//   "duration": "1 hour",
+//   "intensity": "high",
+//   "location": "remote",
+//   "current": 10,
+//   "maximum": 100
+// },

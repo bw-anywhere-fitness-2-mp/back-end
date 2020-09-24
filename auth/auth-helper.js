@@ -4,7 +4,6 @@ function add(data) {
   return db("users")
     .insert(data)
     .then(([id]) => {
-      // console.log(id);
       return findBy({ id });
     });
 }

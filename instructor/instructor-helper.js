@@ -12,7 +12,7 @@ function updateClass(changes, id) {
   return db("classes")
     .where({ id })
     .update(changes)
-    .then((id) => {
+    .then(() => {
       return findById(id);
     });
 }
