@@ -1,6 +1,10 @@
+//import express and.. 
 const router = require("express").Router();
 const Instructors = require("./instructor-helper");
 const restricted = require("../auth/restricted-middleware");
+
+
+//GET  for ALL INSTRUCTERS
 
 router.get("/", (req, res) => {
   // console.log(req.jwt);
@@ -13,6 +17,8 @@ router.get("/", (req, res) => {
     });
 });
 
+//GET INSTRUCTORS BY ID
+
 router.get("/:id", (req, res) => {
   const id = req.params.id;
 
@@ -24,6 +30,8 @@ router.get("/:id", (req, res) => {
       res.status(500).json({ status: 500, err: err.message });
     });
 });
+
+//POST INStructors 
 
 router.post("/", (req, res) => {
   const data = req.body;
@@ -51,6 +59,8 @@ router.post("/", (req, res) => {
   }
 });
 
+//PUT BY ID NUMBER
+
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const changes = req.body;
@@ -64,6 +74,8 @@ router.put("/:id", (req, res) => {
       res.status(500).json({ status: 500, err: err.message });
     });
 });
+
+//DEL REQUEST 
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
