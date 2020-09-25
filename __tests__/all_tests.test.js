@@ -4,6 +4,7 @@ const db = require("../data/db-config");
 
 let token;
 let token2;
+
 describe("auth-router", () => {
   describe("POST /register", () => {
     it("should throw error 400 because of missing fields", async () => {

@@ -1,3 +1,5 @@
+//helper functions
+
 const db = require("../data/db-config");
 
 function add(data) {
